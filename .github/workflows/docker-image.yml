@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Docker login
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - name: Build the docker image
+        run: |
+          GIT_HASH_SHORT=$(git rev-parse --short "$GITHUB_SHA")
+          docker build . \
+          -t tlnguyen/tlnguyen-com-demo:$GIT_HASH_SHORT \
+          -t tlnguyen/tlnguyen-com-demo:latest
+
+      - name: Push to dockerhub
+        run: docker push tlnguyen/tlnguyen-com-demo --all-tags
