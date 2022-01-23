@@ -1,0 +1,28 @@
+body {
+  background: #111;
+  color: #411;
+  font-family: Consolas, Courier, monospace;
+  font-size: 60px;
+  text-shadow: 0 0 15px #411;
+  height: 100%;
+}
+
+div {
+  left: 0;
+  line-height: 200px;
+  margin-top: -100px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.glow {
+  color: #f00;
+  text-shadow: 0px 0px 10px #f00;
+}
+
+span {
+  display: inline-block;
+  padding: 0 10px;
+}
